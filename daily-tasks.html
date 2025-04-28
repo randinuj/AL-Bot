@@ -2,56 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Randinu's A/L Helper - Daily Tasks</title>
-  <link rel="stylesheet" href="daily-tasks.css">
-  <script type="module" src="daily-tasks.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Randinu's A/L Helper Bot - Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Daily Tasks</h1>
-      <p>Manage your tasks and track your study time!</p>
-    </header>
+  <header>
+    <h1>Dashboard</h1>
+  </header>
 
-    <section id="task-list-section">
-      <h2>Today's Tasks</h2>
-      <ul id="task-list"></ul>
+  <main>
+    <section id="exam-countdown">
+      <h2>Countdown to A/L</h2>
+      <p id="days-left"></p>
     </section>
 
-    <section id="add-task-section">
-      <h2>Add Optional Task</h2>
-      <form id="add-task-form">
-        <select id="task-type" required>
-          <option value="">Select Type</option>
-          <option value="Paper">Paper</option>
-          <option value="Questions">Questions</option>
-        </select>
-
-        <div id="task-details"></div>
-
-        <button type="submit">Add Task</button>
-      </form>
+    <section id="progress-section">
+      <h2>Progress Overview</h2>
+      <div id="subject-progress">
+        <div class="subject-card" id="accounting-progress">
+          <h3>Accounting</h3>
+          <progress max="100" value="0"></progress>
+        </div>
+        <div class="subject-card" id="economics-progress">
+          <h3>Economics</h3>
+          <progress max="100" value="0"></progress>
+        </div>
+        <div class="subject-card" id="ict-progress">
+          <h3>ICT</h3>
+          <progress max="100" value="0"></progress>
+        </div>
+      </div>
     </section>
 
-    <section id="study-time-section">
-      <h2>Track Study Time</h2>
-      <form id="study-time-form">
-        <label>Accounting Hours:</label>
-        <input type="number" id="accounting-hours" min="0" max="24" required>
-
-        <label>Economics Hours:</label>
-        <input type="number" id="economics-hours" min="0" max="24" required>
-
-        <label>ICT Hours:</label>
-        <input type="number" id="ict-hours" min="0" max="24" required>
-
-        <button type="submit">Submit Hours</button>
-      </form>
+    <section id="buttons">
+      <a href="daily-tasks.html" class="btn">Daily Tasks</a>
+      <a href="add-default-task.html" class="btn">Manage Default Tasks</a>
     </section>
 
-    <footer>
-      <button onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
-    </footer>
-  </div>
+    <section id="time-tracking">
+      <h2>Study Time (Pie Chart)</h2>
+      <canvas id="studyPieChart"></canvas>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="dashboard.js"></script>
 </body>
-  </html>
+        </html>
