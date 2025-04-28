@@ -1,19 +1,19 @@
 {
-    "name": "Study Tracker",
-    "short_name": "Study Tracker",
-    "description": "Track your study progress and manage your tasks",
-    "start_url": "/",
+    "name": "Randinu's A/L Helper Bot",
+    "short_name": "A/L Helper",
+    "start_url": "index.html",
     "display": "standalone",
-    "background_color": "#4CAF50",
-    "theme_color": "#4CAF50",
+    "background_color": "#1e1e1e",
+    "theme_color": "#69a6ff",
+    "description": "Personalized web app for Randinu's A/L journey. Tracking progress, scores, tasks and study hours!",
     "icons": [
         {
-            "src": "icons/icon-192x192.png",
+            "src": "icon-192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "icons/icon-512x512.png",
+            "src": "icon-512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
