@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+#subjects {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.subject {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    width: 30%;
+}
+
+.progress {
+    background-color: #ddd;
+    height: 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #4CAF50;
+    width: 0;
+    border-radius: 5px;
+}
+
+#tasks {
+    padding: 20px;
+}
+
+#tasks input {
+    padding: 10px;
+    width: 70%;
+    margin-right: 10px;
+}
+
+#tasks button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#log {
+    padding: 20px;
+}
