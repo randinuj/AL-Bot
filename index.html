@@ -3,54 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Tracker</title>
+    <title>Randinu's A/L Helper Bot</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <header>
-        <h1>Study Tracker</h1>
-        <div id="countdown">
-            <h2>Time until A/L Exams:</h2>
-            <p id="countdown-timer"></p>
-        </div>
-    </header>
+    <div class="container">
+        <h1>Randinu's A/L Helper Bot</h1>
+        <div id="countdown"></div>
 
-    <section id="subjects">
-        <div class="subject" id="accounting">
-            <h3>Accounting</h3>
-            <div class="progress">
-                <div class="progress-bar" style="width: 0%"></div>
+        <div class="progress-section">
+            <h2>Subject Progress</h2>
+            <div class="subject" id="accounting">
+                <h3>Accounting</h3>
+                <div class="progress-bar"><div class="progress" id="acc-progress"></div></div>
+            </div>
+            <div class="subject" id="economics">
+                <h3>Economics</h3>
+                <div class="progress-bar"><div class="progress" id="eco-progress"></div></div>
+            </div>
+            <div class="subject" id="ict">
+                <h3>ICT</h3>
+                <div class="progress-bar"><div class="progress" id="ict-progress"></div></div>
             </div>
         </div>
 
-        <div class="subject" id="economics">
-            <h3>Economics</h3>
-            <div class="progress">
-                <div class="progress-bar" style="width: 0%"></div>
-            </div>
+        <div class="section">
+            <h2>Daily Tasks</h2>
+            <input type="text" id="taskInput" placeholder="New task...">
+            <button onclick="addTask()">Add Task</button>
+            <ul id="taskList"></ul>
         </div>
 
-        <div class="subject" id="ict">
-            <h3>ICT</h3>
-            <div class="progress">
-                <div class="progress-bar" style="width: 0%"></div>
-            </div>
+        <div class="section">
+            <h2>Log Your Study Time</h2>
+            <input type="number" id="studyHours" placeholder="Hours studied today">
+            <button onclick="logStudyTime()">Log Hours</button>
+            <p id="totalHours">Total Hours: 0</p>
         </div>
-    </section>
 
-    <section id="tasks">
-        <h2>Today's Tasks</h2>
-        <ul id="task-list"></ul>
-        <input type="text" id="task-input" placeholder="Add a task">
-        <button id="add-task">Add Task</button>
-    </section>
+        <div class="section">
+            <h2>Enter Your Test Scores</h2>
+            <select id="subjectSelect">
+                <option value="accounting">Accounting</option>
+                <option value="economics">Economics</option>
+                <option value="ict">ICT</option>
+            </select>
+            <input type="number" id="mcqScore" placeholder="MCQ Score (/50)">
+            <input type="number" id="essayScore" placeholder="Essay Score (/50)">
+            <button onclick="logScores()">Submit Scores</button>
+        </div>
 
-    <section id="log">
-        <h2>Log Study Sessions</h2>
-        <button id="log-session">Log Session</button>
-    </section>
+        <div id="message"></div>
+
+    </div>
 
     <script src="script.js"></script>
 </body>
-</html>
+                                                                                      </html>
