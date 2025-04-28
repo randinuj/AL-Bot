@@ -1,63 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Randinu's A/L Helper Bot</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Randinu's A/L Helper Bot</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
 </head>
-<body>
-    <div class="container">
-        <h1>Randinu's A/L Helper Bot</h1>
-        <div id="countdown"></div>
+<body class="home-page">
 
-        <div class="progress-section">
-            <h2>Subject Progress</h2>
-            <div class="subject" id="accounting">
-                <h3>Accounting</h3>
-                <div class="progress-bar"><div class="progress" id="acc-progress"></div></div>
-            </div>
-            <div class="subject" id="economics">
-                <h3>Economics</h3>
-                <div class="progress-bar"><div class="progress" id="eco-progress"></div></div>
-            </div>
-            <div class="subject" id="ict">
-                <h3>ICT</h3>
-                <div class="progress-bar"><div class="progress" id="ict-progress"></div></div>
-            </div>
+  <header>
+    <h1>Randinu's A/L Helper Bot</h1>
+    <p class="subtitle">Your Journey to 1.85+ Z-Score Starts Here!</p>
+  </header>
+
+  <main>
+    <section class="countdown-section">
+      <h2>Exam Countdown</h2>
+      <div id="countdown" class="countdown-timer">Loading...</div>
+    </section>
+
+    <section class="progress-section">
+      <h2>Subject Progress</h2>
+
+      <div class="subject">
+        <h3>Accounting</h3>
+        <div class="progress-bar">
+          <div class="progress accounting-progress"></div>
         </div>
+      </div>
 
-        <div class="section">
-            <h2>Daily Tasks</h2>
-            <input type="text" id="taskInput" placeholder="New task...">
-            <button onclick="addTask()">Add Task</button>
-            <ul id="taskList"></ul>
+      <div class="subject">
+        <h3>Economics</h3>
+        <div class="progress-bar">
+          <div class="progress economics-progress"></div>
         </div>
+      </div>
 
-        <div class="section">
-            <h2>Log Your Study Time</h2>
-            <input type="number" id="studyHours" placeholder="Hours studied today">
-            <button onclick="logStudyTime()">Log Hours</button>
-            <p id="totalHours">Total Hours: 0</p>
+      <div class="subject">
+        <h3>ICT</h3>
+        <div class="progress-bar">
+          <div class="progress ict-progress"></div>
         </div>
+      </div>
 
-        <div class="section">
-            <h2>Enter Your Test Scores</h2>
-            <select id="subjectSelect">
-                <option value="accounting">Accounting</option>
-                <option value="economics">Economics</option>
-                <option value="ict">ICT</option>
-            </select>
-            <input type="number" id="mcqScore" placeholder="MCQ Score (/50)">
-            <input type="number" id="essayScore" placeholder="Essay Score (/50)">
-            <button onclick="logScores()">Submit Scores</button>
-        </div>
+    </section>
 
-        <div id="message"></div>
+    <section class="buttons-section">
+      <button onclick="goToDashboard()">Go to Dashboard</button>
+      <button onclick="goToDailyTasks()">Today's Tasks</button>
+    </section>
+  </main>
 
-    </div>
-
-    <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
-                                                                                      </html>
+</html>
