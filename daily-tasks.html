@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Randinu's A/L Helper - Daily Tasks</title>
+  <link rel="stylesheet" href="daily-tasks.css">
+  <script type="module" src="daily-tasks.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Daily Tasks</h1>
+      <p>Manage your tasks and track your study time!</p>
+    </header>
+
+    <section id="task-list-section">
+      <h2>Today's Tasks</h2>
+      <ul id="task-list"></ul>
+    </section>
+
+    <section id="add-task-section">
+      <h2>Add Optional Task</h2>
+      <form id="add-task-form">
+        <select id="task-type" required>
+          <option value="">Select Type</option>
+          <option value="Paper">Paper</option>
+          <option value="Questions">Questions</option>
+        </select>
+
+        <div id="task-details"></div>
+
+        <button type="submit">Add Task</button>
+      </form>
+    </section>
+
+    <section id="study-time-section">
+      <h2>Track Study Time</h2>
+      <form id="study-time-form">
+        <label>Accounting Hours:</label>
+        <input type="number" id="accounting-hours" min="0" max="24" required>
+
+        <label>Economics Hours:</label>
+        <input type="number" id="economics-hours" min="0" max="24" required>
+
+        <label>ICT Hours:</label>
+        <input type="number" id="ict-hours" min="0" max="24" required>
+
+        <button type="submit">Submit Hours</button>
+      </form>
+    </section>
+
+    <footer>
+      <button onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
+    </footer>
+  </div>
+</body>
+  </html>
