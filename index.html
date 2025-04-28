@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <header>
+        <h1>Study Tracker</h1>
+        <div id="countdown">
+            <h2>Time until A/L Exams:</h2>
+            <p id="countdown-timer"></p>
+        </div>
+    </header>
+
+    <section id="subjects">
+        <div class="subject" id="accounting">
+            <h3>Accounting</h3>
+            <div class="progress">
+                <div class="progress-bar" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="subject" id="economics">
+            <h3>Economics</h3>
+            <div class="progress">
+                <div class="progress-bar" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="subject" id="ict">
+            <h3>ICT</h3>
+            <div class="progress">
+                <div class="progress-bar" style="width: 0%"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tasks">
+        <h2>Today's Tasks</h2>
+        <ul id="task-list"></ul>
+        <input type="text" id="task-input" placeholder="Add a task">
+        <button id="add-task">Add Task</button>
+    </section>
+
+    <section id="log">
+        <h2>Log Study Sessions</h2>
+        <button id="log-session">Log Session</button>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
