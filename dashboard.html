@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Randinu's A/L Helper - Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="dashboard.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Randinu's Dashboard</h1>
+      <p>Track your A/L preparation smartly!</p>
+    </header>
+
+    <section id="calendar-section">
+      <h2>Interactive Calendar</h2>
+      <div id="calendar"></div>
+    </section>
+
+    <section id="progress-section">
+      <h2>Subject Progress</h2>
+      <div class="progress-bars">
+        <div class="subject">
+          <h3>Accounting</h3>
+          <div class="progress-bar" id="accounting-progress"></div>
+        </div>
+        <div class="subject">
+          <h3>Economics</h3>
+          <div class="progress-bar" id="economics-progress"></div>
+        </div>
+        <div class="subject">
+          <h3>ICT</h3>
+          <div class="progress-bar" id="ict-progress"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="time-tracking-section">
+      <h2>Time Spent Summary</h2>
+      <canvas id="timePieChart"></canvas>
+    </section>
+
+    <section id="default-tasks-section">
+      <h2>Manage Weekly Default Tasks</h2>
+      <form id="default-task-form">
+        <input type="text" id="task-name" placeholder="Task Name..." required>
+        <select id="day-of-week" required>
+          <option value="">Select Day</option>
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+          <option value="Saturday">Saturday</option>
+          <option value="Sunday">Sunday</option>
+        </select>
+        <button type="submit">Add Default Task</button>
+      </form>
+      <ul id="default-tasks-list"></ul>
+    </section>
+
+    <footer>
+      <button onclick="window.location.href='daily-tasks.html'">Go to Daily Tasks</button>
+    </footer>
+  </div>
+</body>
+            </html>
