@@ -137,3 +137,25 @@ canvas {
   color: #f1f1f1;
   border-radius: 5px;
 }
+.buttons-section {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  background-color: #4fc3f7;
+  border: none;
+  border-radius: 8px;
+  color: #1f1f1f;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #29b6f6;
+}
