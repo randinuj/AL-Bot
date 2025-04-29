@@ -1,30 +1,24 @@
-import { db, doc, getDoc, setDoc } from './firebase.js';
+import { db, doc, getDoc, setDoc } from './firebase.js'; // Import from firebase.js
 
 let defaultTasks = [];
 let additionalTasks = [];
 
-// Fetch default tasks and today's additional tasks
+// Fetch default tasks from Firebase
 async function fetchDefaultTasks() {
-  const today = new Date().toISOString().split('T')[0];
   const docRef = doc(db, "users", "randinu");
   const snapshot = await getDoc(docRef);
-
   if (snapshot.exists()) {
     const data = snapshot.data();
     defaultTasks = data.defaultTasks || [];
-    additionalTasks = data.tasks?.[today]?.additional || [];
+    additionalTasks = data.additionalTasks || []; // Retrieve any additional tasks for the day
+    renderTasks();
   }
-
-  renderTasks();
 }
 
-// Render tasks
+// Render tasks on the page
 function renderTasks() {
   const defaultList = document.getElementById("defaultTasksList");
-  const additionalList = document.getElementById("additionalTasksList");
   defaultList.innerHTML = "";
-  additionalList.innerHTML = "";
-
   defaultTasks.forEach((task) => {
     const li = document.createElement("li");
     li.textContent = task;
@@ -32,6 +26,8 @@ function renderTasks() {
     defaultList.appendChild(li);
   });
 
+  const additionalList = document.getElementById("additionalTasksList");
+  additionalList.innerHTML = "";
   additionalTasks.forEach((task, index) => {
     const li = document.createElement("li");
     li.textContent = task;
@@ -44,25 +40,40 @@ function renderTasks() {
   });
 }
 
-// Add additional task and save immediately
-async function addAdditionalTaskPrompt() {
+// Add additional task
+function addAdditionalTaskPrompt() {
   const task = prompt("Enter additional task");
   if (task) {
     additionalTasks.push(task);
-    await saveTasks(); // save immediately after adding
     renderTasks();
+    sendTasksToFirebase(); // Update Firebase whenever a new task is added
   }
 }
 
-// Remove additional task and update Firebase
+// Remove additional task
 async function removeAdditionalTask(index) {
   additionalTasks.splice(index, 1);
-  await saveTasks(); // save updated list
   renderTasks();
+  sendTasksToFirebase(); // Update Firebase whenever a task is deleted
 }
 
-// Save both default & additional tasks for today
-async function saveTasks() {
+// Submit tasks for today
+async function submitTasks() {
+  const today = new Date().toISOString().split('T')[0];
+  await setDoc(doc(db, "users", "randinu"), {
+    tasks: {
+      [today]: {
+        default: defaultTasks,
+        additional: additionalTasks
+      }
+    }
+  }, { merge: true });
+
+  alert("Tasks submitted for today!");
+}
+
+// Send tasks (both default and additional) to Firebase
+async function sendTasksToFirebase() {
   const today = new Date().toISOString().split('T')[0];
   const docRef = doc(db, "users", "randinu");
 
@@ -76,10 +87,9 @@ async function saveTasks() {
   }, { merge: true });
 }
 
-// Submit study hours
+// Handle study hours submission
 document.getElementById("studyHoursForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-
   const ictTime = document.getElementById("ictHours").value;
   const accountingTime = document.getElementById("accountingHours").value;
   const economicsTime = document.getElementById("economicsHours").value;
@@ -91,9 +101,7 @@ document.getElementById("studyHoursForm").addEventListener("submit", async (e) =
   };
 
   const today = new Date().toISOString().split('T')[0];
-  const docRef = doc(db, "users", "randinu");
-
-  await setDoc(docRef, {
+  await setDoc(doc(db, "users", "randinu"), {
     studyHours: {
       [today]: studyData
     }
@@ -102,4 +110,5 @@ document.getElementById("studyHoursForm").addEventListener("submit", async (e) =
   alert("Study hours submitted!");
 });
 
+// Fetch tasks when the page loads
 window.onload = fetchDefaultTasks;
