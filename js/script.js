@@ -33,5 +33,5 @@ function goToDashboard() {
 }
 
 function goToDailyTasks() {
-  window.location.href = "daily.html";
+  window.location.href = "daily-tasks.html";
 }
