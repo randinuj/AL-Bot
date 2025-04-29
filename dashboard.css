@@ -86,3 +86,54 @@ canvas {
   width: 100% !important;
   max-height: 300px;
 }
+
+.task-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.task-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1e1e1e;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task-list li.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.task-list button {
+  background: none;
+  border: none;
+  color: #f44336;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.study-hours-section {
+  margin-top: 2rem;
+}
+
+.study-input {
+  margin-bottom: 1rem;
+}
+
+.study-input label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.study-input input[type="time"] {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  color: #f1f1f1;
+  border-radius: 5px;
+}
