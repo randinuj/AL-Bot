@@ -110,10 +110,10 @@ function renderChart(data = { ICT: 0, Accounting: 0, Economics: 0 }) {
   const remaining = Math.max(24 - totalStudy, 0); // Ensure it doesn't go negative
 
   const chartData = {
-    labels: ['Study Time', 'Other Time'],
+    labels: ['Study Time', 'Spare Time'],
     datasets: [{
       data: [totalStudy, remaining],
-      backgroundColor: ['#36a2eb', '#e0e0e0']
+      backgroundColor: ['#1c68ff', '#e0e0e0']
     }]
   };
 
@@ -123,16 +123,7 @@ function renderChart(data = { ICT: 0, Accounting: 0, Economics: 0 }) {
   } else {
     studyChart = new Chart(ctx, {
       type: 'doughnut',
-      data: chartData,
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: `Study vs Other Time (Total: ${totalStudy.toFixed(2)} hrs)`
-          }
-        }
-      }
-    });
+      data: chartData });
   }
     }
 
