@@ -1,16 +1,23 @@
 // Countdown Timer
+setInterval(updateCountdown, 86400000); // Update daily
 const countdownEl = document.getElementById('countdown');
-const examDate = new Date('2025-11-10');
+const examDate = new Date('2025-11-10T00:00:00'); // 10th November 2025
 
 function updateCountdown() {
   const now = new Date();
   const diff = examDate - now;
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  countdownEl.textContent = `${days} days until A/L Exam`;
-}
-updateCountdown();
-setInterval(updateCountdown, 86400000); // Update daily
 
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  if (days > 0) {
+    countdownEl.textContent = `${days} Days Left`;
+  } else {
+    countdownEl.textContent = "Exam Day!";
+  }
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
 // Dummy Progress Data
 const progress = {
   ICT: 75,
