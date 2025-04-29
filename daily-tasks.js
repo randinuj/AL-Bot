@@ -106,11 +106,14 @@ async function sendTasksToFirebase() {
 // Render or update study hours chart
 function renderChart(data = { ICT: 0, Accounting: 0, Economics: 0 }) {
   const ctx = document.getElementById('studyChart').getContext('2d');
+  const totalStudy = parseFloat(data.ICT) + parseFloat(data.Accounting) + parseFloat(data.Economics);
+  const remaining = Math.max(24 - totalStudy, 0); // Ensure it doesn't go negative
+
   const chartData = {
-    labels: ['ICT', 'Accounting', 'Economics'],
+    labels: ['Study Time', 'Other Time'],
     datasets: [{
-      data: [data.ICT, data.Accounting, data.Economics],
-      backgroundColor: ['#36a2eb', '#ffcd56', '#ff6384']
+      data: [totalStudy, remaining],
+      backgroundColor: ['#36a2eb', '#e0e0e0']
     }]
   };
 
@@ -125,13 +128,13 @@ function renderChart(data = { ICT: 0, Accounting: 0, Economics: 0 }) {
         plugins: {
           title: {
             display: true,
-            text: "Today's Study Hours"
+            text: `Study vs Other Time (Total: ${totalStudy.toFixed(2)} hrs)`
           }
         }
       }
     });
   }
-}
+    }
 
 // Fetch previous study hours and render chart
 async function loadPreviousStudyHours() {
