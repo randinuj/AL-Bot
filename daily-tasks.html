@@ -1,47 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Daily Tasks - Randinu's A/L Helper Bot</title>
-  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="dashboard.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body><div class="container">
-<!-- Daily Tasks Section -->
-<section class="progress-section">
-  <h2>Today's Tasks</h2>
-  <ul id="defaultTasksList" class="task-list"></ul>
-  <ul id="additionalTasksList" class="task-list"></ul>
-  <button onclick="addAdditionalTaskPrompt()">Add Additional Task</button>
-  <button onclick="submitTasks()">Submit Tasks for Today</button>
-</section>
+<body>
+<div class="container">
 
-<!-- Study Hours Section -->
-<section class="progress-section">
-  <h2>Log Study Hours</h2>
-  <form id="studyHoursForm">
-    <div class="study-input">
-      <label for="ictHours">ICT:</label>
-      <input type="time" id="ictHours" name="ictHours" required>
-    </div>
-    <div class="study-input">
-      <label for="accountingHours">Accounting:</label>
-      <input type="time" id="accountingHours" name="accountingHours" required>
-    </div>
-    <div class="study-input">
-      <label for="economicsHours">Economics:</label>
-      <input type="time" id="economicsHours" name="economicsHours" required>
-    </div>
-    <button type="submit">Submit Study Hours</button>
-  </form>
-</section>
+  <!-- Daily Tasks Section -->
+  <section class="progress-section">
+    <h2>Today's Tasks</h2>
+    <ul id="defaultTasksList" class="task-list"></ul>
+    <ul id="additionalTasksList" class="task-list"></ul>
+    <button onclick="addAdditionalTaskPrompt()">Add Additional Task</button>
+    <button onclick="submitTasks()">Submit Tasks for Today</button>
+  </section>
+
+  <!-- Study Hours Section -->
+  <section class="progress-section">
+    <h2>Log Study Hours</h2>
+    <form id="studyHoursForm">
+      <div class="study-input">
+        <label for="ictHours">ICT:</label>
+        <input type="time" id="ictHours" name="ictHours" required />
+      </div>
+      <div class="study-input">
+        <label for="accountingHours">Accounting:</label>
+        <input type="time" id="accountingHours" name="accountingHours" required />
+      </div>
+      <div class="study-input">
+        <label for="economicsHours">Economics:</label>
+        <input type="time" id="economicsHours" name="economicsHours" required />
+      </div>
+      <button type="submit">Submit Study Hours</button>
+    </form>
+  </section>
+
   <div>
-    <!--<button id="addAdditionalTaskBtn">Add Additional Task</button>-->
-<canvas id="studyChart" width="400" height="400"></canvas>
-  </div></div>
+    <canvas id="studyChart" width="400" height="400"></canvas>
+  </div>
 
-  <script src="daily-tasks.js"></script>
-<script src="/path/to/firebase.js"></script>
+</div>
+
+<!-- Use module type for JS that contains ES6 import/export -->
+<script type="module" src="./firebase.js"></script>
+<script type="module" src="./daily-tasks.js"></script>
+
 </body>
-</html>
+          </html>
