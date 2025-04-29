@@ -1,40 +1,53 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Randinu's A/L Dashboard</title>
   <link rel="stylesheet" href="dashboard.css" />
-  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css' rel='stylesheet' />
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
 </head>
 <body>
   <div class="container">
     <header>
       <h1>A/L Countdown: <span id="daysLeft"></span> Days Left</h1>
-    </header><section class="progress-section">
-  <h2>Subject Progress</h2>
-  <div class="progress-bar">
-    <label>ICT</label>
-    <progress value="0" max="100" id="ictProgress"></progress>
-  </div>
-  <div class="progress-bar">
-    <label>Accounting</label>
-    <progress value="0" max="100" id="accProgress"></progress>
-  </div>
-  <div class="progress-bar">
-    <label>Economics</label>
-    <progress value="0" max="100" id="ecoProgress"></progress>
-  </div>
-</section>
+    </header>
 
-<section class="calendar-section">
-  <h2>Interactive Calendar</h2>
-  <div id='calendar'></div>
-</section>
+    <section class="progress-section">
+      <h2>Subject Progress</h2>
+      <div class="progress-bar">
+        <label>ICT</label>
+        <progress value="0" max="100" id="ictProgress"></progress>
+      </div>
+      <div class="progress-bar">
+        <label>Accounting</label>
+        <progress value="0" max="100" id="accProgress"></progress>
+      </div>
+      <div class="progress-bar">
+        <label>Economics</label>
+        <progress value="0" max="100" id="ecoProgress"></progress>
+      </div>
+    </section>
 
-<section class="report-section">
-  <h2>Study Time Overview</h2>
-  <canvas id="timePie"></canvas>
-</section>
+    <section class="calendar-section">
+      <h2>Interactive Calendar</h2>
+      <div id="calendar"></div>
+    </section>
 
-  </div>  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  <script src="dashboard.js"></script><script src="firebase.js"></script></body>
-                                                                                                         </html>
+    <section class="report-section">
+      <h2>Study Time Overview</h2>
+      <canvas id="timePie"></canvas>
+    </section>
+  </div>
+
+  <!-- FullCalendar and Chart.js Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Firebase Config & JS -->
+  <script type="module" src="firebase.js"></script>
+
+  <!-- Your Custom JS -->
+  <script type="module" src="dashboard.js"></script>
+</body>
+  </html>
