@@ -35,3 +35,29 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   calendar.render();
 });
+
+// Study Time Pie Chart
+const ctx = document.getElementById('timeChart').getContext('2d');
+new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Study Time', 'Free Time'],
+    datasets: [{
+      label: 'Time Spent',
+      data: [35, 133], // Example: 35h studied out of 168h/week
+      backgroundColor: ['#42a5f5', '#757575'],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom'
+      },
+      title: {
+        display: false
+      }
+    }
+  }
+});
