@@ -10,27 +10,38 @@
 <body>
   <div class="container">
     <h1>Daily Tasks</h1>
+  <div>
+    <ul id="defaultTasksList" class="task-list"></ul>
+  </div>
 
-    <section id="default-tasks">
-      <h2>Default Tasks for Today</h2>
-      <ul id="defaultTasksList"></ul>
-      <button onclick="addDefaultTaskPrompt()">+ Add Default Task</button>
-    </section>
+  <div>
+    <ul id="additionalTasksList" class="task-list"></ul>
+    <button onclick="addAdditionalTaskPrompt()">Add Task</button>
+  </div>
 
-    <section id="additional-tasks">
-      <h2>Additional Tasks</h2>
-      <ul id="additionalTasksList"></ul>
-      <button onclick="addAdditionalTaskPrompt()">+ Add Task</button>
-    </section>
+  <button onclick="submitTasks()">Confirm Today's Tasks</button>
+</section>
 
-    <section id="study-time">
-      <h2>Study Time Tracker</h2>
-      <label for="studyHours">Hours Studied Today:</label>
-      <input type="number" id="studyHours" min="0" step="0.5">
-      <button onclick="saveStudyTime()">Save</button>
+<section class="study-hours-section">
+  <h2>Log Study Hours</h2>
 
-      <canvas id="timeChart"></canvas>
-    </section>
+  <form id="studyHoursForm" onsubmit="submitStudyHours(); return false;">
+    <div class="hour-inputs">
+      <label>ICT:</label>
+      <input type="time" id="ictTime" step="60" required />
+
+      <label>Accounting:</label>
+      <input type="time" id="accTime" step="60" required />
+
+      <label>Economics:</label>
+      <input type="time" id="ecoTime" step="60" required />
+    </div>
+
+    <button type="submit">Submit Study Hours</button>
+  </form>
+
+  <canvas id="timeChart"></canvas>
+</section>
   </div>
 
   <script src="daily-tasks.js"></script>
