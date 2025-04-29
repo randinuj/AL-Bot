@@ -1,12 +1,15 @@
 let defaultTasks = ["ICT Daily Quiz"];
 let additionalTasks = [];
+let submittedTasks = [];
 
 function renderTasks() {
   const defaultList = document.getElementById("defaultTasksList");
   defaultList.innerHTML = "";
-  defaultTasks.forEach((task, index) => {
+  defaultTasks.forEach((task) => {
     const li = document.createElement("li");
-    li.innerHTML = `${task} <button onclick="removeDefaultTask(${index})">X</button>`;
+    li.textContent = task;
+    li.addEventListener("click", () => toggleComplete(li));
+    li.classList.toggle("completed", submittedTasks.includes(task));
     defaultList.appendChild(li);
   });
 
@@ -14,22 +17,15 @@ function renderTasks() {
   additionalList.innerHTML = "";
   additionalTasks.forEach((task, index) => {
     const li = document.createElement("li");
-    li.innerHTML = `${task} <button onclick="removeAdditionalTask(${index})">X</button>`;
+    li.innerHTML = `<span>${task}</span> <button onclick="removeAdditionalTask(${index})">X</button>`;
+    li.querySelector("span").addEventListener("click", () => toggleComplete(li));
+    li.classList.toggle("completed", submittedTasks.includes(task));
     additionalList.appendChild(li);
   });
 }
 
-function addDefaultTaskPrompt() {
-  const task = prompt("Enter default task");
-  if (task) {
-    defaultTasks.push(task);
-    renderTasks();
-  }
-}
-
-function removeDefaultTask(index) {
-  defaultTasks.splice(index, 1);
-  renderTasks();
+function toggleComplete(li) {
+  li.classList.toggle("completed");
 }
 
 function addAdditionalTaskPrompt() {
@@ -45,10 +41,24 @@ function removeAdditionalTask(index) {
   renderTasks();
 }
 
-function saveStudyTime() {
-  const hours = document.getElementById("studyHours").value;
-  alert(`Saved ${hours} hours today!`);
-  renderChart(hours);
+function submitTasks() {
+  submittedTasks = [...defaultTasks, ...additionalTasks];
+  alert("Tasks confirmed for today!");
+  renderTasks();
+}
+
+function submitStudyHours() {
+  const ict = document.getElementById("ictTime").value;
+  const acc = document.getElementById("accTime").value;
+  const eco = document.getElementById("ecoTime").value;
+
+  const totalHours = [ict, acc, eco].reduce((total, timeStr) => {
+    const [h, m] = timeStr.split(":").map(Number);
+    return total + (h + m / 60);
+  }, 0);
+
+  alert(`Logged a total of ${totalHours.toFixed(2)} hours today.`);
+  renderChart(totalHours);
 }
 
 function renderChart(hours) {
