@@ -112,3 +112,6 @@ document.getElementById("studyHoursForm").addEventListener("submit", async (e) =
 
 // Fetch tasks when the page loads
 window.onload = fetchDefaultTasks;
+
+document.getElementById("addTaskBtn").addEventListener("click", addAdditionalTaskPrompt);
+document.getElementById("submitTasksBtn").addEventListener("click", submitTasks);
