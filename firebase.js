@@ -1,68 +1,21 @@
-// Import and configure Firebase
-// Make sure to include Firebase SDK in your HTML before this script
-// <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-// <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-// <script src="/js/firebase.js"></script>
+// Import necessary functions from Firebase SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC99x-h0rsxYd_uqu3_axIyI9p8Qdz_MXY",
   authDomain: "randinu-al-helper.firebaseapp.com",
+  databaseURL: "https://randinu-al-helper-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "randinu-al-helper",
-  storageBucket: "randinu-al-helper.appspot.com",
+  storageBucket: "randinu-al-helper.firebasestorage.app",
   messagingSenderId: "890408425238",
   appId: "1:890408425238:web:81dd575aa1e0b2c341e237"
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app); // Get Firestore instance
 
-// ----------------------------
-// Helper Functions (Exports)
-// ----------------------------
-
-// Save a task to a specific day
-function saveTask(userId, date, taskData) {
-  return db.collection('users').doc(userId)
-    .collection('tasks').doc(date).set(taskData, { merge: true });
-}
-
-// Get tasks for a specific day
-function getTasks(userId, date) {
-  return db.collection('users').doc(userId)
-    .collection('tasks').doc(date).get();
-}
-
-// Save study hours
-function logStudyHours(userId, date, hours) {
-  return db.collection('users').doc(userId)
-    .collection('studyTime').doc(date).set({ hours }, { merge: true });
-}
-
-// Get study time summary
-function getStudySummary(userId) {
-  return db.collection('users').doc(userId)
-    .collection('studyTime').get();
-}
-
-// Save performance data (like MCQ marks, essay scores, etc.)
-function logPerformance(userId, subject, data) {
-  return db.collection('users').doc(userId)
-    .collection('performance').doc(subject).set(data, { merge: true });
-}
-
-// Get performance data
-function getPerformance(userId, subject) {
-  return db.collection('users').doc(userId)
-    .collection('performance').doc(subject).get();
-}
-
-// Export
-window.firebaseUtils = {
-  db,
-  saveTask,
-  getTasks,
-  logStudyHours,
-  getStudySummary,
-  logPerformance,
-  getPerformance
-};
+// Export db so it can be used in other parts of the app
+export { db, doc, getDoc, setDoc };
