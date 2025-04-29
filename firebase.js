@@ -3,12 +3,11 @@
 // <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 // <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 // <script src="/js/firebase.js"></script>
-
 const firebaseConfig = {
   apiKey: "AIzaSyC99x-h0rsxYd_uqu3_axIyI9p8Qdz_MXY",
   authDomain: "randinu-al-helper.firebaseapp.com",
   projectId: "randinu-al-helper",
-  storageBucket: "randinu-al-helper.firebasestorage.app",
+  storageBucket: "randinu-al-helper.appspot.com",
   messagingSenderId: "890408425238",
   appId: "1:890408425238:web:81dd575aa1e0b2c341e237"
 };
