@@ -1,52 +1,38 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Randinu's A/L Helper Bot - Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Tasks - Randinu's A/L Helper Bot</title>
+  <link rel="stylesheet" href="daily-tasks.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Dashboard</h1>
-  </header>
+  <div class="container">
+    <h1>Daily Tasks</h1>
 
-  <main>
-    <section id="exam-countdown">
-      <h2>Countdown to A/L</h2>
-      <p id="days-left"></p>
+    <section id="default-tasks">
+      <h2>Default Tasks for Today</h2>
+      <ul id="defaultTasksList"></ul>
+      <button onclick="addDefaultTaskPrompt()">+ Add Default Task</button>
     </section>
 
-    <section id="progress-section">
-      <h2>Progress Overview</h2>
-      <div id="subject-progress">
-        <div class="subject-card" id="accounting-progress">
-          <h3>Accounting</h3>
-          <progress max="100" value="0"></progress>
-        </div>
-        <div class="subject-card" id="economics-progress">
-          <h3>Economics</h3>
-          <progress max="100" value="0"></progress>
-        </div>
-        <div class="subject-card" id="ict-progress">
-          <h3>ICT</h3>
-          <progress max="100" value="0"></progress>
-        </div>
-      </div>
+    <section id="additional-tasks">
+      <h2>Additional Tasks</h2>
+      <ul id="additionalTasksList"></ul>
+      <button onclick="addAdditionalTaskPrompt()">+ Add Task</button>
     </section>
 
-    <section id="buttons">
-      <a href="daily-tasks.html" class="btn">Daily Tasks</a>
-      <a href="add-default-task.html" class="btn">Manage Default Tasks</a>
-    </section>
+    <section id="study-time">
+      <h2>Study Time Tracker</h2>
+      <label for="studyHours">Hours Studied Today:</label>
+      <input type="number" id="studyHours" min="0" step="0.5">
+      <button onclick="saveStudyTime()">Save</button>
 
-    <section id="time-tracking">
-      <h2>Study Time (Pie Chart)</h2>
-      <canvas id="studyPieChart"></canvas>
+      <canvas id="timeChart"></canvas>
     </section>
-  </main>
+  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="dashboard.js"></script>
+  <script src="daily-tasks.js"></script>
 </body>
-        </html>
+</html>
