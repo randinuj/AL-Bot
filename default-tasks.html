@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Default Tasks</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Manage Weekly Default Tasks</h1>
+    <section class="default-tasks-section">
+      <h2>Current Default Tasks</h2>
+      <ul id="defaultTasksList" class="task-list"></ul>
+    </section>
+    <section class="add-default-task-section">
+      <h2>Add New Default Task</h2>
+      <form id="addDefaultTaskForm">
+        <label for="taskDays">Select Day(s):</label>
+        <select id="taskDays" name="taskDays" multiple required>
+          <option value="Sunday">Sunday</option>
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+          <option value="Saturday">Saturday</option>
+        </select>
+        <label for="taskName">Task Name:</label>
+        <input type="text" id="taskName" name="taskName" required>
+        <button type="submit">Save Task</button>
+      </form>
+    </section>
+  </div>
+  <script src="default-tasks.js"></script>
+</body>
+</html>
