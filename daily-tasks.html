@@ -8,36 +8,33 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h2>Daily Tasks</h2>
-  <div>
-    <ul id="defaultTasksList" class="task-list"></ul>
-    <ul id="additionalTasksList" class="task-list"></ul>
-    <button onclick="addAdditionalTaskPrompt()">Add Task</button>
-  </div>
-
-  <button onclick="submitTasks()">Submit Today's Tasks</button>
+<!-- Daily Tasks Section -->
+<section class="tasks-section">
+  <h2>Today's Tasks</h2>
+  <ul id="defaultTasksList" class="task-list"></ul>
+  <ul id="additionalTasksList" class="task-list"></ul>
+  <button onclick="addAdditionalTaskPrompt()">Add Additional Task</button>
+  <button onclick="submitTasks()">Submit Tasks for Today</button>
 </section>
 
+<!-- Study Hours Section -->
 <section class="study-hours-section">
   <h2>Log Study Hours</h2>
-
-  <form id="studyHoursForm" onsubmit="submitStudyHours(); return false;">
-    <div class="hour-inputs">
-      <label>ICT:</label>
-      <input type="time" id="ictTime" step="60" required />
-
-      <label>Accounting:</label>
-      <input type="time" id="accTime" step="60" required />
-
-      <label>Economics:</label>
-      <input type="time" id="ecoTime" step="60" required />
+  <form id="studyHoursForm">
+    <div class="study-input">
+      <label for="ictHours">ICT:</label>
+      <input type="time" id="ictHours" name="ictHours" required>
     </div>
-
+    <div class="study-input">
+      <label for="accountingHours">Accounting:</label>
+      <input type="time" id="accountingHours" name="accountingHours" required>
+    </div>
+    <div class="study-input">
+      <label for="economicsHours">Economics:</label>
+      <input type="time" id="economicsHours" name="economicsHours" required>
+    </div>
     <button type="submit">Submit Study Hours</button>
   </form>
-
-  <canvas id="timeChart"></canvas>
 </section>
   </div>
 
