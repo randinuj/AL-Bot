@@ -5,12 +5,12 @@
 // <script src="/js/firebase.js"></script>
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyC99x-h0rsxYd_uqu3_axIyI9p8Qdz_MXY",
+  authDomain: "randinu-al-helper.firebaseapp.com",
+  projectId: "randinu-al-helper",
+  storageBucket: "randinu-al-helper.firebasestorage.app",
+  messagingSenderId: "890408425238",
+  appId: "1:890408425238:web:81dd575aa1e0b2c341e237"
 };
 
 // Initialize Firebase
