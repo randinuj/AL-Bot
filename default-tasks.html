@@ -16,7 +16,8 @@
     <section class="add-default-task-section">
       <h2>Add New Default Task</h2>
       <form id="addDefaultTaskForm" class="progress-section">
-        <label for="taskDays">Select Day(s):</label>
+        <div class="study-input">
+          <label for="taskDays">Select Day(s):</label>
         <select id="taskDays" name="taskDays" multiple required>
           <option value="Sunday">Sunday</option>
           <option value="Monday">Monday</option>
@@ -26,7 +27,7 @@
           <option value="Friday">Friday</option>
           <option value="Saturday">Saturday</option>
         </select><br><br>
-        <label for="taskName">Task Name:</label>
+        <label for="taskName">Task Name:</label></div>
         <input type="text" id="taskName" name="taskName" required><br><br>
         <button type="submit">Save Task</button>
       </form>
