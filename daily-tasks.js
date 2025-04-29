@@ -1,7 +1,8 @@
-import { db, doc, getDoc, setDoc } from './firebase.js'; // Import from firebase.js
+import { db, doc, getDoc, setDoc } from './firebase.js';
 
 let defaultTasks = [];
 let additionalTasks = [];
+let studyChart;
 
 // Fetch default tasks from Firebase
 async function fetchDefaultTasks() {
@@ -9,10 +10,27 @@ async function fetchDefaultTasks() {
   const snapshot = await getDoc(docRef);
   if (snapshot.exists()) {
     const data = snapshot.data();
-    defaultTasks = data.defaultTasks || [];
-    additionalTasks = data.additionalTasks || []; // Retrieve any additional tasks for the day
+    defaultTasks = (data.defaultTasks || []).filter(task =>
+      task.days.includes(getTodayName())
+    ).map(task => task.name);
+
+    const today = getTodayDate();
+    if (data.tasks && data.tasks[today]) {
+      additionalTasks = data.tasks[today].additional || [];
+    }
+
     renderTasks();
   }
+}
+
+// Get today's date as string
+function getTodayDate() {
+  return new Date().toISOString().split('T')[0];
+}
+
+// Get today's day name (e.g., Monday)
+function getTodayName() {
+  return new Date().toLocaleDateString('en-US', { weekday: 'long' });
 }
 
 // Render tasks on the page
@@ -46,7 +64,7 @@ function addAdditionalTaskPrompt() {
   if (task) {
     additionalTasks.push(task);
     renderTasks();
-    sendTasksToFirebase(); // Update Firebase whenever a new task is added
+    sendTasksToFirebase();
   }
 }
 
@@ -54,12 +72,12 @@ function addAdditionalTaskPrompt() {
 async function removeAdditionalTask(index) {
   additionalTasks.splice(index, 1);
   renderTasks();
-  sendTasksToFirebase(); // Update Firebase whenever a task is deleted
+  sendTasksToFirebase();
 }
 
 // Submit tasks for today
 async function submitTasks() {
-  const today = new Date().toISOString().split('T')[0];
+  const today = getTodayDate();
   await setDoc(doc(db, "users", "randinu"), {
     tasks: {
       [today]: {
@@ -74,10 +92,8 @@ async function submitTasks() {
 
 // Send tasks (both default and additional) to Firebase
 async function sendTasksToFirebase() {
-  const today = new Date().toISOString().split('T')[0];
-  const docRef = doc(db, "users", "randinu");
-
-  await setDoc(docRef, {
+  const today = getTodayDate();
+  await setDoc(doc(db, "users", "randinu"), {
     tasks: {
       [today]: {
         default: defaultTasks,
@@ -87,12 +103,56 @@ async function sendTasksToFirebase() {
   }, { merge: true });
 }
 
-// Handle study hours submission
+// Render or update study hours chart
+function renderChart(data = { ICT: 0, Accounting: 0, Economics: 0 }) {
+  const ctx = document.getElementById('studyChart').getContext('2d');
+  const chartData = {
+    labels: ['ICT', 'Accounting', 'Economics'],
+    datasets: [{
+      data: [data.ICT, data.Accounting, data.Economics],
+      backgroundColor: ['#36a2eb', '#ffcd56', '#ff6384']
+    }]
+  };
+
+  if (studyChart) {
+    studyChart.data = chartData;
+    studyChart.update();
+  } else {
+    studyChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: chartData,
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: "Today's Study Hours"
+          }
+        }
+      }
+    });
+  }
+}
+
+// Fetch previous study hours and render chart
+async function loadPreviousStudyHours() {
+  const today = getTodayDate();
+  const docRef = doc(db, "users", "randinu");
+  const snapshot = await getDoc(docRef);
+  if (snapshot.exists()) {
+    const data = snapshot.data();
+    const studyData = (data.studyHours && data.studyHours[today]) || { ICT: 0, Accounting: 0, Economics: 0 };
+    renderChart(studyData);
+  } else {
+    renderChart(); // fallback
+  }
+}
+
+// Submit study hours
 document.getElementById("studyHoursForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const ictTime = document.getElementById("ictHours").value;
-  const accountingTime = document.getElementById("accountingHours").value;
-  const economicsTime = document.getElementById("economicsHours").value;
+  const ictTime = parseFloat(document.getElementById("ictHours").value) || 0;
+  const accountingTime = parseFloat(document.getElementById("accountingHours").value) || 0;
+  const economicsTime = parseFloat(document.getElementById("economicsHours").value) || 0;
 
   const studyData = {
     ICT: ictTime,
@@ -100,18 +160,23 @@ document.getElementById("studyHoursForm").addEventListener("submit", async (e) =
     Economics: economicsTime
   };
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = getTodayDate();
   await setDoc(doc(db, "users", "randinu"), {
     studyHours: {
       [today]: studyData
     }
   }, { merge: true });
 
+  renderChart(studyData);
+
   alert("Study hours submitted!");
 });
 
-// Fetch tasks when the page loads
-window.onload = fetchDefaultTasks;
+// On page load
+window.onload = async () => {
+  await fetchDefaultTasks();
+  await loadPreviousStudyHours();
+};
 
 document.getElementById("addTaskBtn").addEventListener("click", addAdditionalTaskPrompt);
 document.getElementById("submitTasksBtn").addEventListener("click", submitTasks);
