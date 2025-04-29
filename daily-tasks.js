@@ -49,22 +49,35 @@ function addAdditionalTaskPrompt() {
 }
 
 // Remove additional task
-function removeAdditionalTask(index) {
+async function removeAdditionalTask(index) {
   additionalTasks.splice(index, 1);
   renderTasks();
+
+  const today = new Date().toISOString().split('T')[0];
+  const docRef = doc(db, "users", "randinu");
+  await setDoc(docRef, {
+    tasks: {
+      [today]: {
+        default: defaultTasks,
+        additional: additionalTasks
+      }
+    }
+  }, { merge: true });
+}
 }
 
 // Submit tasks for today
 async function submitTasks() {
   const today = new Date().toISOString().split('T')[0];
   const docRef = doc(db, "users", "randinu");
-  await updateDoc(docRef, {
-    [`tasks.${today}`]: {
+await setDoc(docRef, {
+  tasks: {
+    [today]: {
       default: defaultTasks,
       additional: additionalTasks
     }
-  });
-  alert("Tasks submitted for today!");
+  }
+}, { merge: true });
 }
 
 // Handle study hours submission
@@ -82,9 +95,11 @@ document.getElementById("studyHoursForm").addEventListener("submit", async (e) =
 
   const today = new Date().toISOString().split('T')[0];
   const docRef = doc(db, "users", "randinu");
-  await updateDoc(docRef, {
-    [`studyHours.${today}`]: studyData
-  });
+  await setDoc(docRef, {
+  studyHours: {
+    [today]: studyData
+  }
+}, { merge: true });
   alert("Study hours submitted!");
 });
 
