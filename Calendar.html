@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Randinu's Calendar View</title>
+  <link rel="stylesheet" href="calendar.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }.calendar-container {
+  background-color: #1e1e1e;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+  max-width: 400px;
+  width: 100%;
+}
+
+input[type="date"] {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+#taskList {
+  list-style: none;
+  padding: 0;
+}
+
+#taskList li {
+  background: #2a2a2a;
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#taskList li button {
+  background: #ff4d4d;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+#newTask {
+  padding: 0.5rem;
+  width: calc(100% - 2rem);
+  margin-top: 1rem;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+  </style>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+</head>
+<body>
+  <div class="calendar-container">
+    <h2>Study Calendar</h2>
+    <input type="date" id="datePicker" />
+    <div id="taskContainer">
+      <h3 id="selectedDate"></h3>
+      <ul id="taskList"></ul>
+      <input type="text" id="newTask" placeholder="Add a task" />
+      <button onclick="addTask()">Add Task</button>
+    </div>
+  </div>
+  <script>
+    // Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyC99x-h0rsxYd_uqu3_axIyI9p8Qdz_MXY",
+  authDomain: "randinu-al-helper.firebaseapp.com",
+  projectId: "randinu-al-helper",
+  storageBucket: "randinu-al-helper.firebasestorage.app",
+  messagingSenderId: "890408425238",
+  appId: "1:890408425238:web:81dd575aa1e0b2c341e237"
+};
+    firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+const datePicker = document.getElementById('datePicker');
+const taskList = document.getElementById('taskList');
+const selectedDate = document.getElementById('selectedDate');
+
+datePicker.addEventListener('change', () => {
+  const date = datePicker.value;
+  selectedDate.textContent = `Tasks for ${date}`;
+  loadTasks(date);
+});
+
+function loadTasks(date) {
+  taskList.innerHTML = '';
+  database.ref(`tasks/${date}`).once('value', (snapshot) => {
+    snapshot.forEach((child) => {
+      const li = document.createElement('li');
+      li.textContent = child.val();
+      const btn = document.createElement('button');
+      btn.textContent = 'x';
+      btn.onclick = () => deleteTask(date, child.key);
+      li.appendChild(btn);
+      taskList.appendChild(li);
+    });
+  });
+}
+
+function addTask() {
+  const date = datePicker.value;
+  const newTask = document.getElementById('newTask').value;
+  if (date && newTask) {
+    const taskRef = database.ref(`tasks/${date}`).push();
+    taskRef.set(newTask);
+    document.getElementById('newTask').value = '';
+    loadTasks(date);
+  }
+}
+
+function deleteTask(date, taskId) {
+  database.ref(`tasks/${date}/${taskId}`).remove();
+  loadTasks(date);
+}
+
+  </script>
+</body>
+</html>
