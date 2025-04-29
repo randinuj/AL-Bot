@@ -1,15 +1,27 @@
-let defaultTasks = ["ICT Daily Quiz"];
-let additionalTasks = [];
-let submittedTasks = [];
+import { db, doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from './firebase.js';
 
+let defaultTasks = [];
+let additionalTasks = [];
+
+// Fetch default tasks from Firebase
+async function fetchDefaultTasks() {
+  const docRef = doc(db, "users", "randinu");
+  const snapshot = await getDoc(docRef);
+  if (snapshot.exists()) {
+    const data = snapshot.data();
+    defaultTasks = data.defaultTasks || [];
+    renderTasks();
+  }
+}
+
+// Render tasks
 function renderTasks() {
   const defaultList = document.getElementById("defaultTasksList");
   defaultList.innerHTML = "";
   defaultTasks.forEach((task) => {
     const li = document.createElement("li");
     li.textContent = task;
-    li.addEventListener("click", () => toggleComplete(li));
-    li.classList.toggle("completed", submittedTasks.includes(task));
+    li.addEventListener("click", () => li.classList.toggle("completed"));
     defaultList.appendChild(li);
   });
 
@@ -17,17 +29,17 @@ function renderTasks() {
   additionalList.innerHTML = "";
   additionalTasks.forEach((task, index) => {
     const li = document.createElement("li");
-    li.innerHTML = `<span>${task}</span> <button onclick="removeAdditionalTask(${index})">X</button>`;
-    li.querySelector("span").addEventListener("click", () => toggleComplete(li));
-    li.classList.toggle("completed", submittedTasks.includes(task));
+    li.textContent = task;
+    li.addEventListener("click", () => li.classList.toggle("completed"));
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "X";
+    removeBtn.onclick = () => removeAdditionalTask(index);
+    li.appendChild(removeBtn);
     additionalList.appendChild(li);
   });
 }
 
-function toggleComplete(li) {
-  li.classList.toggle("completed");
-}
-
+// Add additional task
 function addAdditionalTaskPrompt() {
   const task = prompt("Enter additional task");
   if (task) {
@@ -36,50 +48,44 @@ function addAdditionalTaskPrompt() {
   }
 }
 
+// Remove additional task
 function removeAdditionalTask(index) {
   additionalTasks.splice(index, 1);
   renderTasks();
 }
 
-function submitTasks() {
-  submittedTasks = [...defaultTasks, ...additionalTasks];
-  alert("Tasks confirmed for today!");
-  renderTasks();
-}
-
-function submitStudyHours() {
-  const ict = document.getElementById("ictTime").value;
-  const acc = document.getElementById("accTime").value;
-  const eco = document.getElementById("ecoTime").value;
-
-  const totalHours = [ict, acc, eco].reduce((total, timeStr) => {
-    const [h, m] = timeStr.split(":").map(Number);
-    return total + (h + m / 60);
-  }, 0);
-
-  alert(`Logged a total of ${totalHours.toFixed(2)} hours today.`);
-  renderChart(totalHours);
-}
-
-function renderChart(hours) {
-  const ctx = document.getElementById("timeChart").getContext("2d");
-  new Chart(ctx, {
-    type: "doughnut",
-    data: {
-      labels: ["Studied", "Remaining"],
-      datasets: [{
-        data: [hours, 24 - hours],
-        backgroundColor: ["#42a5f5", "#757575"],
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: 'bottom' },
-        title: { display: true, text: 'Study Time Today' }
-      }
+// Submit tasks for today
+async function submitTasks() {
+  const today = new Date().toISOString().split('T')[0];
+  const docRef = doc(db, "users", "randinu");
+  await updateDoc(docRef, {
+    [`tasks.${today}`]: {
+      default: defaultTasks,
+      additional: additionalTasks
     }
   });
+  alert("Tasks submitted for today!");
 }
 
-window.onload = renderTasks;
+// Handle study hours submission
+document.getElementById("studyHoursForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const ictTime = document.getElementById("ictHours").value;
+  const accountingTime = document.getElementById("accountingHours").value;
+  const economicsTime = document.getElementById("economicsHours").value;
+
+  const studyData = {
+    ICT: ictTime,
+    Accounting: accountingTime,
+    Economics: economicsTime
+  };
+
+  const today = new Date().toISOString().split('T')[0];
+  const docRef = doc(db, "users", "randinu");
+  await updateDoc(docRef, {
+    [`studyHours.${today}`]: studyData
+  });
+  alert("Study hours submitted!");
+});
+
+window.onload = fetchDefaultTasks;
