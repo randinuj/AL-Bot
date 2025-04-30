@@ -36,12 +36,13 @@ header {
   width: 100%;
   max-width: 500px;
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .countdown-timer {
   font-size: 2rem;
   margin-top: 10px;
-  color: #1c68ff;
+  color: #058fff;
   text-align: center;
 }
 
