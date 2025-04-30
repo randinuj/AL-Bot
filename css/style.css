@@ -69,7 +69,7 @@ header {
 
 .progress {
   height: 100%;
-  background-color: #1c68ff; /* Light Blue */
+  background-color: #058fff; /* Light Blue */
   width: 0%;
   transition: width 0.5s ease-in-out;
 }
@@ -85,7 +85,7 @@ header {
 button {
   padding: 12px 20px;
   font-size: 1.1rem;
-  background-color: #1c68ff;
+  background-color: #058fff;
   border: none;
   border-radius: 8px;
   color: #121212;
