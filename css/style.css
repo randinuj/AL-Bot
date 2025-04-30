@@ -30,7 +30,7 @@ header {
 
 /* Countdown Section */
 .countdown-section {
-  background-color: #2b2b2b;
+  background-color: #303030;
   padding: 20px;
   border-radius: 12px;
   width: 100%;
@@ -41,7 +41,7 @@ header {
 .countdown-timer {
   font-size: 2rem;
   margin-top: 10px;
-  color: #4fc3f7;
+  color: #1c68ff;
   text-align: center;
 }
 
@@ -53,6 +53,10 @@ header {
 
 .subject {
   margin-bottom: 20px;
+}
+.firstsubject {
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .progress-bar {
@@ -81,10 +85,10 @@ header {
 button {
   padding: 12px 20px;
   font-size: 1.1rem;
-  background-color: #4fc3f7;
+  background-color: #1c68ff;
   border: none;
   border-radius: 8px;
-  color: #1f1f1f;
+  color: #121212;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
